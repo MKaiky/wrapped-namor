@@ -1,13 +1,34 @@
 @import "tailwindcss";
 
+/* Fundo animado */
 @keyframes gradientMove {
-  0% {background-position: 0% 50%;}
-  50% {background-position: 100% 50%;}
-  100% {background-position: 0% 50%;}
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 .bg-love {
   background: linear-gradient(-45deg,#ff758c,#ff7eb3,#ff9a9e,#fad0c4);
   background-size: 400% 400%;
   animation: gradientMove 12s ease infinite;
+}
+
+
+/* Animação dos corações */
+@keyframes floatLinear {
+
+  0% {
+    transform: translateY(0);
+    opacity: 0;
+  }
+
+  10% {
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateY(-120vh);
+    opacity: 0;
+  }
+
 }
