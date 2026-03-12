@@ -1,43 +1,47 @@
-import { useState } from "react"
+import { useMemo } from "react"
 
 type Heart = {
+  id: number
   left: number
   size: number
   duration: number
+  emoji: string
 }
 
+const emojis = ["❤️", "💖", "💕", "💗", "💘"]
+
 function generateHearts(): Heart[] {
-  const hearts: Heart[] = []
-
-  for (let i = 0; i < 20; i++) {
-    hearts.push({
-      left: Math.random() * 100,
-      size: Math.random() * 20 + 20,
-      duration: 6 + Math.random() * 6
-    })
-  }
-
-  return hearts
+  return Array.from({ length: 15 }).map((_, i) => ({
+    id: i,
+    left: Math.random() * 100,
+    size: 16 + Math.random() * 24,
+    duration: 6 + Math.random() * 6,
+    emoji: emojis[Math.floor(Math.random() * emojis.length)]
+  }))
 }
 
 export default function FloatingHearts() {
-  const [hearts] = useState<Heart[]>(generateHearts)
+
+  const hearts = useMemo<Heart[]>(() => generateHearts(), [])
 
   return (
-    <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
-      {hearts.map((heart, i) => (
-        <div
-          key={i}
-          className="absolute text-pink-400 animate-float"
+    <div className="fixed inset-0 -z-10 pointer-events-none overflow-hidden">
+
+      {hearts.map((heart) => (
+        <span
+          key={heart.id}
+          className="absolute animate-[floatLinear]"
           style={{
             left: `${heart.left}%`,
             fontSize: `${heart.size}px`,
-            animationDuration: `${heart.duration}s`
+            animationDuration: `${heart.duration}s`,
+            bottom: "-40px"
           }}
         >
-          ❤️
-        </div>
+          {heart.emoji}
+        </span>
       ))}
+
     </div>
   )
 }

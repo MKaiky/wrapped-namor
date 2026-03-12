@@ -106,7 +106,7 @@ export default function App() {
       <FloatingHearts />
 
       {/* Slide central */}
-      <div className="w-full max-w-md text-center z-10">
+      <div className="w-full max-w-sm mx-auto text-center z-10 px-4 overflow-y-auto max-h-[85dvh]">
         <SlideTransition key={step}>
           {page}
         </SlideTransition>
